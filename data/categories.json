@@ -1,0 +1,34 @@
+[
+  {
+    "photo": "uranzohiol.jpg",
+    "_id": "5e90434cd433fa11b078ed8a",
+    "name": "Уран зохиол",
+    "description": "Дэлхийн сонгодог уран зохиолуудаас эндээс үзээрэй!",
+    "createdAt": "2020-12-23T06:19:39.051Z",
+    "__v": 0
+  },
+  {
+    "photo": "shinjleh.jpg",
+    "_id": "5e96cc1ba816c94e009a9c9e",
+    "name": "Шинжлэх ухаан",
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis dolores nemo exercitationem, nisi dolore fuga modi quibusdam quo recusandae, ad fugit est neque nulla consectetur ipsam vero. Sequi aliquid autem rem expedita, laborum provident aut error perferendis. Ullam nisi architecto eius consectetur, dicta minima aliquid earum, amet neque reprehenderit commodi.",
+    "createdAt": "2020-12-23T06:21:56.349Z",
+    "__v": 0
+  },
+  {
+    "photo": "program.jpg",
+    "_id": "5e90478549941f52dcb01b34",
+    "name": "Програмчлал",
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis dolores nemo exercitationem, nisi dolore fuga modi quibusdam quo recusandae, ad fugit est neque nulla consectetur ipsam vero. Sequi aliquid autem rem expedita, laborum provident aut error perferendis. Ullam nisi architecto eius consectetur, dicta minima aliquid earum, amet neque reprehenderit commodi.",
+    "createdAt": "2020-12-23T06:21:56.349Z",
+    "__v": 0
+  },
+  {
+    "photo": "biznes.jpg",
+    "_id": "5e9047fd49941f52dcb01b35",
+    "name": "Бизнес",
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis dolores nemo exercitationem, nisi dolore fuga modi quibusdam quo recusandae, ad fugit est neque nulla consectetur ipsam vero. Sequi aliquid autem rem expedita, laborum provident aut error perferendis. Ullam nisi architecto eius consectetur, dicta minima aliquid earum, amet neque reprehenderit commodi.",
+    "createdAt": "2020-12-23T06:21:56.349Z",
+    "__v": 0
+  }
+]
