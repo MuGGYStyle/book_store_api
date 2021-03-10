@@ -27,6 +27,34 @@ exports.getBooks = asyncHandler(async (req, res, next) => {
   res.status(200).json({
     success: true,
     count: books.length,
+    books,
+    pagination,
+  });
+});
+
+exports.getUserBooks = asyncHandler(async (req, res, next) => {
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 5;
+  const sort = req.query.sort;
+  const select = req.query.select;
+
+  ["select", "sort", "page", "limit"].forEach((el) => delete req.query[el]);
+  const pagination = await paginate(Book, page, limit);
+
+  req.query.createUser = req.userId;
+
+  const books = await Book.find(req.query, select)
+    .populate({
+      path: "category",
+      select: "name averagePrice",
+    })
+    .sort(sort)
+    .skip(pagination.start - 1)
+    .limit(limit);
+
+  res.status(200).json({
+    success: true,
+    count: books.length,
     data: books,
     pagination,
   });
@@ -67,7 +95,8 @@ exports.getBook = asyncHandler(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
-    data: book,
+    from: "Get Book",
+    book,
   });
 });
 
@@ -78,26 +107,39 @@ exports.createBook = asyncHandler(async (req, res, next) => {
     throw new MyError(req.params.id + " ID-тэй категори байхгүй.", 400);
   }
 
+  req.body.createUser = req.userId;
+
   const book = await Book.create(req.body);
 
   res.status(200).json({
     success: true,
-    data: book,
+    book,
   });
 });
 
 exports.updateBook = asyncHandler(async (req, res, next) => {
-  const book = await Book.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-    runValidators: true,
-  });
+  const book = await Book.findById(req.params.id);
+
   if (!book) {
-    throw new MyError(req.params.id + " ID-тай ном олдсонгүй", 200);
+    throw new MyError(req.params.id + " ID-тай ном олдсонгүй", 400);
   }
+
+  if (book.createUser.toString() !== req.userId && req.userRole !== "admin") {
+    throw new MyError("Та зөвхөн өөрийнхөө номыг л засварлах эрхтэй", 403);
+  }
+
+  req.body.updateUser = req.userId;
+
+  for (let key in req.body) {
+    book[key] = req.body[key];
+  }
+
+  book.save();
 
   return res.status(200).json({
     success: true,
-    data: book,
+    from: "Update Book",
+    book,
   });
 });
 
@@ -108,11 +150,16 @@ exports.deleteBook = asyncHandler(async (req, res, next) => {
     throw new MyError(req.params.id + " ID-тай ном олдсонгүй", 200);
   }
 
+  if (book.createUser.toString() !== req.userId && req.userRole !== "admin") {
+    throw new MyError("Та зөвхөн өөрийнхөө номыг л засварлах эрхтэй", 403);
+  }
+
   book.remove();
 
   return res.status(200).json({
     success: true,
-    data: book,
+    from: "Delete Book",
+    book,
   });
 });
 

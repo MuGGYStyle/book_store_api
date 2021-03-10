@@ -1,0 +1,23 @@
+[
+  {
+    "role": "admin",
+    "_id": "6040936bb235030e3bc4388a",
+    "name": "Admin",
+    "email": "admin@gmail.com",
+    "password": "Password123"
+  },
+  {
+    "role": "operator",
+    "_id": "6040937cb235030e3bc4388b",
+    "name": "Operator",
+    "email": "operator@gmail.com",
+    "password": "Password123"
+  },
+  {
+    "role": "user",
+    "_id": "6040957cc5c8520eae730b81",
+    "name": "User",
+    "email": "user@gmail.com",
+    "password": "Password123"
+  }
+]

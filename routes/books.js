@@ -1,5 +1,5 @@
 const express = require("express");
-const router = express.Router();
+const { protect, authorize } = require("../middleware/protect");
 const {
   getBooks,
   getBook,
@@ -8,12 +8,26 @@ const {
   updateBook,
   uploadBookPhoto,
 } = require("../controller/books");
+const { getBookComments } = require("../controller/comments");
+
+const router = express.Router();
 
 // "/api/v1/books"
-router.route("/").get(getBooks).post(createBook);
+router
+  .route("/")
+  .get(getBooks)
+  .post(protect, authorize("admin", "operator"), createBook);
 
-router.route("/:id").get(getBook).delete(deleteBook).put(updateBook);
+router
+  .route("/:id")
+  .get(getBook)
+  .delete(protect, authorize("admin"), deleteBook)
+  .put(protect, authorize("admin", "operator"), updateBook);
 
-router.route("/:id/photo").put(uploadBookPhoto);
+router
+  .route("/:id/upload-photo")
+  .put(protect, authorize("admin", "operator"), uploadBookPhoto);
+
+router.route("/:id/comments").get(getBookComments);
 
 module.exports = router;

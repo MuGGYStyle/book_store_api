@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const { protect, authorize } = require("../middleware/protect");
 const {
   getCategories,
   getCategory,
@@ -17,16 +18,21 @@ router.route("/:categoryId/books").get(getCategoryBooks);
 // router.use("/:categoryId/books", booksRouter);
 
 // /api/v1/categories
-router.route("/").get(getCategories).post(createCategory);
+router
+  .route("/")
+  .get(getCategories)
+  .post(protect, authorize("admin"), createCategory);
 
 // /api/v1/categories/:id
 router
   .route("/:id")
   .get(getCategory)
-  .put(updateCategory)
-  .delete(deleteCategory);
+  .put(protect, authorize("admin", "operator"), updateCategory)
+  .delete(protect, authorize("admin"), deleteCategory);
 
-// /api/v1/categories/:id/photo
-router.route("/:id/photo").put(uploadCategoryPhoto);
+// /api/v1/categories/:id/upload-photo
+router
+  .route("/:id/upload-photo")
+  .put(protect, authorize("admin", "operator"), uploadCategoryPhoto);
 
 module.exports = router;
