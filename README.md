@@ -5,11 +5,7 @@ Use a seeder.js
 node seeder.js -i
 ```
 
-## Step 2:
-run server:
+## Run server:
 ```bash
 npm run dev
 ```
-
-## Step 3:
-Call APIs from Postman
